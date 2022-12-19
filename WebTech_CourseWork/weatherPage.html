@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CourseWorkWebsite</title>
+    <link rel="stylesheet" href="websiteStyleSheet.css"> <!-- link for style sheet used -->
+    <script src="dailyweatherdata.js"></script>
+    <script src="weatherforecast.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+
+<body>
+
+    <div class="row ">
+        <!-- navBar -->
+        <div id="banner">
+        <div class="navbar">
+        <h1 class="textColor">WEATHER FORECAST</h1>
+        <ul>
+            <li><a href="homePage.html">Home</a></li>
+            <li><a href="CVPage.html">Curriculum Vitae</a></li>
+            <li><a href="weatherPage.html">Weather App</a></li>
+            <li><a href="http://www.teach.scam.keele.ac.uk/prin/x3f17/WebTech_CourseWork/session.php">Attendance System</a></li>
+        </ul>
+        </div>
+        </div>
+    </div>
+
+    <div class="row contentBorder purpleBackground">
+        <div class="col-12 col-s-12">
+            <h2>Stoke-On-Trent Daily Forecast</h2> 
+
+            <div class="row">
+                <div class="col-3 col-s-6">
+                    Lon: <label id="stokeLon"></label>
+                    <br>
+                    Lat: <label id="stokeLat"></label>
+                    <br>
+                </div>
+
+                <div class="col-3 col-s-6">
+                    Condition: <label id="stokeMain"></label>
+                    <br>
+                    Description:  <label id="stokeDescription"></label>
+                    <br>
+                </div>
+
+                <div class="col-3 col-s-6">
+                    Current Temp: <label id="stokeTemp"></label><span>&#176;</span><br>
+                    Humidity: <label id="stokeHumidity"></label>%
+                    <br>
+                </div>
+
+                <div class="col-3 col-s-6">
+                    Low Temp: <label id="stokeTempLow"></label><span>&#176;</span>
+                    <br>
+                    High Temp: <label id="stokeTempHigh"></label><span>&#176;</span>
+                    <br>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="col-12 col-s-12">
+            <h2>London Daily Forecast</h2> 
+            <div class="row">
+                <div class="col-3 col-s-6">
+                    Lon: <label id="LondLon"></label><br>
+                    Lat: <label id="LondLat"></label><br>
+                </div>
+                <div class="col-3 col-s-6">
+                    Condition: <label id="LondMain"></label><br>
+                    Description: <label id="LondDescription"></label><br>
+                </div>
+                <div class="col-3 col-s-6">
+                    Current Temp: <label id="LondTemp"></label><span>&#176;</span><br>
+                    Humidity: <label id="LondHumidity"></label>%<br>
+                </div>
+                <div class="col-3 col-s-6">
+                    Low Temp: <label id="LondTempLow"></label><span>&#176;</span><br>
+                    High Temp: <label id="LondTempHigh"></label><span>&#176;</span><br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row contentBorder">
+        <div class="col-12 col-s-12 weatherBorder">
+            <h2>Stoke-On Trent Monthly Charts</h2>
+            
+            <button onclick="line_Temp()"  class="button">Line Chart</button>
+            <button onclick="bar_Temp()" class="button">Bar Chart</button>
+            <button onclick="scatter_Temp()" class="button">Scatter Chart</button>
+            
+            <canvas id="tempCanvas"></canvas>
+        </div>
+
+        <div class="col-6 col-s-12 weatherBorder">
+            
+            <button onclick="line_Wind()"  class="button">Line Chart</button>
+            <button onclick="bar_Wind()" class="button">Bar Chart</button>
+            <button onclick="scatter_Wind()" class="button">Scatter Chart</button>
+            
+            <canvas id="windCanvas"></canvas>
+        </div>  
+
+        <div class="col-6 col-s-12 weatherBorder">
+            
+            <button onclick="line_Humidity()"  class="button">Line Chart</button>
+            <button onclick="bar_Humidity()" class="button">Bar Chart</button>
+            <button onclick="scatter_Humidity()" class="button">Scatter Chart</button>
+           
+            <canvas id="humidCanvas"></canvas>
+        </div>
+    </div>
+
+    <div class="row contentBorder">
+        <div class="col-12">
+            <h2>Stoke-On Trent / London Monthly Chart</h2>
+
+            <select id="colourChooser" onchange="ChangeColour()">
+                <optgroup>
+                    <option>Choose Colour</option>
+                    <option value="1">Pink & Purple</option>
+                    <option value="2">Green & Blue</option>
+                    <option value="3">Yellow & Turqoise</option>
+                </optgroup>
+            </select>
+
+            <div class="center">
+                <button onclick="temp_compare()" class="button">Compare Temperature</button>
+                <button onclick="wind_compare()" class="button">Compare Wind Speed</button>
+            </div>
+        </div>
+
+        <div class="col-12 weatherBorder"> 
+            <canvas id="compareCanvas"></canvas>
+        </div>
+
+        <div class="col-12 center">
+            <button onclick="bar_ChartCompare()" class="button">Bar Chart</button>
+            <button onclick="line_ChartCompare()" class="button">Line Chart</button>
+            <button onclick="scatter_ChartCompare()" class="button">Scatter Chart</button>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div id="footer">
+        <h3 class="secondaryText">Fiazan Hussain</h3>
+            <a href="https://twitter.com" class="button">Twitter</a>
+            <a href="https://www.instagram.com/" class="button">Instagram</a>
+            <a href="https://www.facebook.com" class="button">Facebook</a>
+            <a href="https://linkedin.com/" class="button">LinkedIn</a>
+        </div>
+    </div>
+</body>
+
+<script>
+//////////////////////////////////////////////////////////////Task 1 - Rendering daily weather information//////////////////////////////////////////////////////////////
+    
+    /* Access file for daily data of Stoke and 
+    set values of labels*/
+    var StokeDaily = JSON.parse(dailydata_stoke); 
+    document.getElementById('stokeLon').innerHTML = StokeDaily.coord.lon; 
+    document.getElementById('stokeLat').innerHTML = StokeDaily.coord.lat;
+    document.getElementById('stokeMain').innerHTML = StokeDaily.weather[0].main;
+    document.getElementById('stokeDescription').innerHTML = StokeDaily.weather[0].description;
+    document.getElementById('stokeTemp').innerHTML = StokeDaily.main.temp;
+    document.getElementById('stokeTempLow').innerHTML = StokeDaily.main.temp_min;
+    document.getElementById('stokeTempHigh').innerHTML = StokeDaily.main.temp_max;    
+    document.getElementById('stokeHumidity').innerHTML = StokeDaily.main.humidity;
+
+    /* Access file for daily data of London and 
+    set values of labels*/
+    var LonDaily = JSON.parse(dailydata_london); 
+    document.getElementById('LondLon').innerHTML = LonDaily.coord.lon;
+    document.getElementById('LondLat').innerHTML = LonDaily.coord.lat;
+    document.getElementById('LondMain').innerHTML = LonDaily.weather[0].main;
+    document.getElementById('LondDescription').innerHTML = LonDaily.weather[0].description;
+    document.getElementById('LondTemp').innerHTML = LonDaily.main.temp;
+    document.getElementById('LondTempLow').innerHTML = LonDaily.main.temp_min;
+    document.getElementById('LondTempHigh').innerHTML = LonDaily.main.temp_max; 
+    document.getElementById('LondHumidity').innerHTML = LonDaily.main.humidity;
+
+//////////////////////////////////////////////////////////////Task 2 - Visualise Weather forecast//////////////////////////////////////////////////////////////
+  
+    ///* Temperature Graph *///
+    var forecast = JSON.parse(forecast_stoke);
+
+    //data set for x-axis whcih will be reused for each graph (dates)
+    this.dateList = forecast.list.map(list => {
+        return list.dt_txt; 
+    });
+    this.temperatureList = forecast.list.map(list => {
+        return list.main.temp; //data set for y-axis (temperature)
+    });
+
+    var ctx = document.getElementById('tempCanvas').getContext('2d');
+    this.chartTemp = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: this.dateList, //x-axis
+            datasets: [
+                {
+                label: "Temperature",
+                backgroundColor: "#653bcfb5",
+                borderColor: "#5729CE",
+                borderWidth: 2,
+                pointRadius: 5,
+                data: this.temperatureList //y-axis
+                }
+            ]
+        }
+    })
+
+    /* Update functions to change graph type linked to button */
+    function line_Temp() {
+        var updatetype = "line";
+        var updatebackgroundcolor = ""
+        chartTemp.config.type = updatetype;
+        chartTemp.update()
+    };
+    function bar_Temp() {
+        var updatetype = "bar";
+        chartTemp.config.type = updatetype;
+        chartTemp.update()
+    };
+    function scatter_Temp() {
+        var updatetype = "scatter";
+        chartTemp.config.type = updatetype;
+        chartTemp.update()
+    };
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
+    ///* Wind speed Graph *///
+    this.windSpeedList = forecast.list.map(list => {
+        return list.wind.speed; //data set for y-axis (windspeed)
+    });
+
+    var ctx = document.getElementById('windCanvas').getContext('2d');
+    this.chartWind = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: this.dateList,
+            datasets: [
+                {
+                label: "Wind Speed",
+                backgroundColor: "lightpink",
+                borderColor: "red",
+                borderWidth: 2,
+                pointRadius: 5,
+                fill: false,
+                data: this.windSpeedList
+                }
+            ]
+        }
+    })
+
+    /* Functions to change graph type linked to button */
+    function line_Wind() {
+        var updatetype = "line";
+        var updatebackgroundcolor = ""
+        chartWind.config.type = updatetype;
+        chartWind.update()
+    };
+    function bar_Wind() {
+        var updatetype = "bar";
+        chartWind.config.type = updatetype;
+        chartWind.update()
+    };
+    function scatter_Wind() {
+        var updatetype = "scatter";
+        chartWind.config.type = updatetype;
+        chartWind.update()
+    };
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    ///* Humidity  Graph *///
+    this.humidityList = forecast.list.map(list => {
+        return list.main.humidity; //data set for y-axis (humidity)
+    });
+
+    var ctx = document.getElementById('humidCanvas').getContext('2d');
+    this.chartHumidity = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: this.dateList,
+            datasets: [
+                {
+                label: "Humidity",
+                backgroundColor: "lightblue",
+                borderColor: "blue",
+                borderWidth: 2,
+                pointRadius: 5,
+                fill: false,
+                data: this.humidityList
+                }
+            ]
+        }
+    })
+
+    /* Functions to change graph type linked to button */
+    function line_Humidity() {
+        var updatetype = "line";
+        var updatebackgroundcolor = ""
+        chartHumidity.config.type = updatetype;
+        chartHumidity.update()
+    };
+    function bar_Humidity() {
+        var updatetype = "bar";
+        chartHumidity.config.type = updatetype;
+        chartHumidity.update()
+    };
+    function scatter_Humidity() {
+        var updatetype = "scatter";
+        chartHumidity.config.type = updatetype;
+        chartHumidity.update()
+    };
+
+
+//////////////////////////////////////////////////////////////Task 3/4 - Visualise Weather forecast//////////////////////////////////////////////////////////////
+
+///* Comparison between London and Stooke-On-Trent Graph *///
+    var forecast2 = JSON.parse(forecast_london);
+    this.dateList = forecast2.list.map(list => {
+        return list.dt_txt;
+    });
+
+    this.LondontemperatureList = forecast2.list.map(list => {
+        return list.main.temp;
+    });
+
+    this.StoketemperatureList = forecast.list.map(list => {
+            return list.main.temp;
+        });
+
+    var ctx = document.getElementById('compareCanvas').getContext('2d');
+
+    var londonTempData = {
+        label: "London Temp",
+        backgroundColor: "lightpink",
+        borderColor: "red",
+        borderWidth: 2,
+        pointRadius: 5,
+        data: this.LondontemperatureList
+        }
+    var stokeTempData = {
+        label: "Stoke Temp",
+        backgroundColor: "#653bcfb5",
+        borderColor: "#5729CE",
+        borderWidth: 2,
+        pointRadius: 5,
+        data: this.StoketemperatureList
+        }
+
+    this.chartComp = new Chart(ctx, {
+        type: "bar" ,
+        data: {
+        labels: this.dateList,
+        datasets: [londonTempData, stokeTempData]
+        }        
+    })
+
+    function line_ChartCompare() {
+        var updatetype = "line";
+        var updatebackgroundcolor = ""
+        chartComp.config.type = updatetype;
+        chartComp.update()
+    };
+    function bar_ChartCompare() {
+        var updatetype = "bar";
+        chartComp.config.type = updatetype;
+        chartComp.update()
+    };
+    function scatter_ChartCompare() {
+        var updatetype = "scatter";
+        chartComp.config.type = updatetype;
+        chartComp.update()
+    };
+
+    var colourChooser = document.getElementById('colourChooser');
+    colourChooser.addEventListener('change', ChangeColour);
+
+    function ChangeColour() {
+        switch(colourChooser.value) {
+            case "1":
+                var updateCol1 = "lightpink";
+                var updateBorderCol1 = "red";
+                var updateCol2 = "#653bcfb5";
+                var updateBorderCol2 = "purple";
+                chartComp.config.data.datasets[0].backgroundColor = updateCol1;
+                chartComp.config.data.datasets[0].borderColor = updateBorderCol1;
+                chartComp.config.data.datasets[1].backgroundColor = updateCol2;
+                chartComp.config.data.datasets[1].borderColor = updateBorderCol2;
+                chartComp.update()
+            break;
+            case "2":
+                var updateCol1 = "lightgreen";
+                var updateBorderCol1 = "green";
+                var updateCol2 = "lightblue";
+                var updateBorderCol2 = "blue";
+                chartComp.config.data.datasets[0].backgroundColor = updateCol1;
+                chartComp.config.data.datasets[0].borderColor = updateBorderCol1;
+                chartComp.config.data.datasets[1].backgroundColor = updateCol2;
+                chartComp.config.data.datasets[1].borderColor = updateBorderCol2;
+                chartComp.update()
+            break;
+            case "3":
+                var updateCol1 = "#fbd9429e";
+                var updateBorderCol1 = "yellow";
+                var updateCol2 = "turquoise";
+                var updateBorderCol2 = "lightblue";
+                chartComp.config.data.datasets[0].backgroundColor = updateCol1;
+                chartComp.config.data.datasets[0].borderColor = updateBorderCol1;
+                chartComp.config.data.datasets[1].backgroundColor = updateCol2;
+                chartComp.config.data.datasets[1].borderColor = updateBorderCol2;
+                chartComp.update()
+            break;
+        }
+    };
+
+///* Comparison between London and Stooke-On-Trent WindSpeed Graph *///
+    this.LondonWindSpeedList = forecast2.list.map(list => {
+        return list.wind.speed;
+    });
+
+    this.StokeWindSpeedList = forecast.list.map(list => {
+        return list.wind.speed;
+    });
+
+    var londonWindData = {
+        label: "London Wind Speed",
+        backgroundColor: "lightpink",
+        borderColor: "red",
+        borderWidth: 2,
+        pointRadius: 5,
+        data: this.LondonWindSpeedList
+        }
+    var stokeWindData = {
+        label: "Stoke Wind Speed",
+        backgroundColor: "#653bcfb5",
+        borderColor: "#5729CE",
+        borderWidth: 2,
+        pointRadius: 5,
+        data: this.StokeWindSpeedList
+        }
+
+    function temp_compare() {
+        chartComp.config.data.datasets[0] = londonTempData;
+        chartComp.config.data.datasets[1] = stokeTempData;
+        chartComp.update()
+    };
+
+    function wind_compare() {
+        chartComp.config.data.datasets[0] = londonWindData;
+        chartComp.config.data.datasets[1] = stokeWindData;
+        chartComp.update()
+    };
+
+</script>
+
+</html>
